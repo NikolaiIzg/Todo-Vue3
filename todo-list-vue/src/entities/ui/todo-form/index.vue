@@ -1,28 +1,28 @@
 <template>
-    <form class="todo-form" @submit.prevent = addItem(todo)>
-      <input class="text-field-input" type="text" placeholder="Введите текст" v-model="todo">
-      <button class="text-field-btn">Add Todo</button>
-    </form>
+  <form class="todo-form" @submit.prevent="addItem">
+    <input class="text-field-input" type="text" placeholder="Введите текст" v-model="todo">
+    <button class="text-field-btn">Add Todo</button>
+  </form>
 </template>
 
 <script lang="ts">
 import { defineComponent, ref } from 'vue';
-import { useTodoStore } from '../../model'
 
 export default defineComponent({
   name: 'TodoForm',
-  setup () {
-    const todo = ref('')
-    const store = useTodoStore()
+  setup(_, { emit }) {
+    const todo = ref('');
 
-    const addItem = (item: string) => {
-      store.addTodo(item)
-      todo.value = ''
-    }
+    const addItem = () => {
+      if (todo.value.trim() !== '') {
+        emit('addItem', todo.value.trim());
+        todo.value = '';
+      }
+    };
 
-    return { todo, store, addItem }
+    return { todo, addItem };
   }
-})
+});
 </script>
 
 <style lang="css" scoped>

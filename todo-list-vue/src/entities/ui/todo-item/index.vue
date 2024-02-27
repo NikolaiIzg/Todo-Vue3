@@ -1,29 +1,35 @@
 <template>
-<div v-for="todo in todolist" :key="todo.id" class="todo-item">
-      <span :class="{ completed: todo.completed }" class="item">{{ todo.item }}</span>
-      <div>
-        <span @click="completedTodo(todo.id)" class="btn-done">done</span>
-        <span @click="deleteTodo(todo.id)" class="btn-delete">delete</span>
-      </div>
+  <div class="todo-item">
+    <span :class="{ completed: todo?.completed }" class="item">{{ todo?.item }}</span>
+    <div>
+      <span @click="toggleCompleted" class="btn-done">done</span>
+      <span @click="deleteItem" class="btn-delete">delete</span>
+    </div>
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue';
-import { useTodoStore } from '../../model';
-import { storeToRefs } from 'pinia';
+import { TodoItemType } from '../../../shared/types';
 
 export default defineComponent({
-  name: "TodoItem",
-  setup () {
-    const store = useTodoStore()
-    const { todolist } = storeToRefs(store);
-    const { deleteTodo, completedTodo } = store
-    
+  name: 'TodoItem',
+  props: {
+    todo: Object as () => TodoItemType,
+  },
+  emits: ['delete', 'toggleCompleted'],
+  setup(props, { emit }) {
+    const deleteItem = () => {
+      emit('delete', props.todo?.id);
+    };
 
-    return { todolist, deleteTodo, completedTodo }
+    const toggleCompleted = () => {
+      emit('toggleCompleted', props.todo?.id);
+    };
+
+    return { deleteItem, toggleCompleted };
   }
-})
+});
 </script>
 
 <style lang="css" scoped>
