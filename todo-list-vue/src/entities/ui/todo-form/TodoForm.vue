@@ -5,24 +5,18 @@
   </form>
 </template>
 
-<script lang="ts">
-import { defineComponent, ref } from 'vue';
+<script setup lang="ts">
+import { ref } from 'vue';
 
-export default defineComponent({
-  name: 'TodoForm',
-  setup(_, { emit }) {
-    const todo = ref('');
+const todo = ref('');
+const emit = defineEmits<{(e: 'addItem', value: string): void}>()
 
-    const addItem = () => {
-      if (todo.value.trim() !== '') {
-        emit('addItem', todo.value.trim());
-        todo.value = '';
-      }
-    };
-
-    return { todo, addItem };
+const addItem = () => {
+  if (todo.value.trim() !== '') {
+    emit('addItem', todo.value.trim());
+    todo.value = '';
   }
-});
+};
 </script>
 
 <style lang="css" scoped>

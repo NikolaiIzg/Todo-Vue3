@@ -12,16 +12,12 @@
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent, ref } from 'vue';
+<script setup lang="ts">
+import { ref } from 'vue';
 import { TodoItemType } from '../../../shared/types';
 import { TodoForm }  from '../todo-form'
 import { TodoItem } from '../todo-item'
 
-export default defineComponent({
-  name: 'TodoList',
-  components: { TodoForm, TodoItem },
-  setup() {
     const todos = ref<TodoItemType[]>([]);
 
     const addItem = (item: string) => {
@@ -38,9 +34,7 @@ export default defineComponent({
         todos.value[todoIndex].completed = !todos.value[todoIndex].completed;
       }
     };
-    return { todos, addItem, deleteItem, toggleCompleted };
-  }
-});
+
 </script>
 
 

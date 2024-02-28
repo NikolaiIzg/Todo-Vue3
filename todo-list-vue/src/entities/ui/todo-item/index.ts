@@ -1,2 +1,2 @@
-import TodoItem from './index.vue'
+import TodoItem from './TodoItem.vue'
 export { TodoItem }

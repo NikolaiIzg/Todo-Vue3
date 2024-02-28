@@ -1,2 +1,2 @@
-import TodoList from './index.vue'
+import TodoList from './TodoList.vue'
 export { TodoList }

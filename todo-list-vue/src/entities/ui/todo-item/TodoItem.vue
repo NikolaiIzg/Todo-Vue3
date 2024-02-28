@@ -8,28 +8,20 @@
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue';
-import { TodoItemType } from '../../../shared/types';
+<script setup lang="ts">
+import { TodoItemType, Emits } from '../../../shared/types';
+import { defineProps, defineEmits } from 'vue';
 
-export default defineComponent({
-  name: 'TodoItem',
-  props: {
-    todo: Object as () => TodoItemType,
-  },
-  emits: ['delete', 'toggleCompleted'],
-  setup(props, { emit }) {
-    const deleteItem = () => {
-      emit('delete', props.todo?.id);
-    };
+const props = defineProps<{ todo: TodoItemType }>();
+const emit = defineEmits<Emits>();
 
-    const toggleCompleted = () => {
-      emit('toggleCompleted', props.todo?.id);
-    };
+const deleteItem = () => {
+  emit('delete', props.todo.id);
+};
 
-    return { deleteItem, toggleCompleted };
-  }
-});
+const toggleCompleted = () => {
+  emit('toggleCompleted', props.todo.id);
+};
 </script>
 
 <style lang="css" scoped>

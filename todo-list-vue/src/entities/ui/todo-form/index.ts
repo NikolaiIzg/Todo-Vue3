@@ -1,2 +1,2 @@
-import TodoForm from './index.vue'
+import TodoForm from './TodoForm.vue'
 export { TodoForm }
